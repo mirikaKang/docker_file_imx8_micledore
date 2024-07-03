@@ -4,6 +4,11 @@
 
 FROM ubuntu:20.04
 
+RUN apt-get update && apt-get install -y \
+    man-db \
+    sudo
+
+
 RUN apt-get update && apt-get install -y sudo openssl apt-utils
 
 # Define username 
