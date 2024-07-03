@@ -2,6 +2,7 @@
 
 # fixed permission error
 cd ~/
+
 sudo chown -R builder:sudo Workspace/
 
 # how to Start Build Server
