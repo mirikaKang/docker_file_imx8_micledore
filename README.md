@@ -1,5 +1,7 @@
 # docker_file_imx8_micledore
 
+based on ubuntu22.04
+
 # fixed permission error
 cd ~/
 
