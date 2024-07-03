@@ -1,7 +1,3 @@
-# SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-# Copyright 2023 SDT.
-# david.kang@sdt.inc 
-
 FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install -y sudo openssl apt-utils
