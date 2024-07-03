@@ -1,5 +1,9 @@
 # docker_file_imx8_micledore
 
+# fixed permission error
+cd ~/
+sudo chown -R builder:sudo Workspace/
+
 # how to Start Build Server
 MACHINE=imx8mp-var-dart DISTRO=fsl-imx-xwayland . var-setup-release.sh build_xwayland
 
