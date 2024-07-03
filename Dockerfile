@@ -4,14 +4,6 @@
 
 FROM ubuntu:20.04
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-
-RUN apt-get update && apt-get install -y \
-    man-db \
-    sudo
-
-
 RUN apt-get update && apt-get install -y sudo openssl apt-utils
 
 # Define username 
@@ -21,9 +13,9 @@ ENV USER=builder
 #setup locale
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y locales && dpkg-reconfigure locales --frontend noninteractive && locale-gen "en_US.UTF-8" && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
 # jig
 RUN apt-get update && apt-get install -y \
@@ -92,6 +84,10 @@ RUN apt-get update && apt-get install -y \
 #      liblz4-tool zstd 
 
 
+# Install SSH server
+RUN apt-get update && apt-get install -y openssh-server
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
 
 # Update to latest
 RUN apt-get update && apt-get dist-upgrade -y
@@ -99,9 +95,7 @@ RUN apt-get update && apt-get dist-upgrade -y
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install SSH server
-RUN apt-get update && apt-get install -y openssh-server
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
 
 
 # repo update  
@@ -133,4 +127,4 @@ RUN git config --system user.name "mirikaKang" && git config --system user.email
 
 RUN cd /home/${USER}/Workspace/yocto-imx 
 RUN repo init -u https://github.com/varigit/variscite-bsp-platform.git -b mickledore -m imx-6.1.36-2.1.0.xml
-RUN sudo repo sync -j4
+RUN sudo repo sync -j8
