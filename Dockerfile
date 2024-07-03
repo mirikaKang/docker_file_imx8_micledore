@@ -4,6 +4,9 @@
 
 FROM ubuntu:20.04
 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
 RUN apt-get update && apt-get install -y \
     man-db \
     sudo
